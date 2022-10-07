@@ -5,6 +5,15 @@
     padding-right: 15px;
 }
 
-#user-create {
+#create {
     margin-top: 20px
+}
+
+#panel-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+label{
+    display: block;
 }

@@ -19,46 +19,56 @@
         </a>
     </div>
 </nav>
-
 <div class="container">
     <div class="row">
         <div class="col-xs-3">
             <ul class="nav nav-pills nav-stacked">
-                <li>管理画面</li>
-                <li class="active"><a href="/">管理者</a></li>
-                <li><a href="/member">メンバー</a></li>
+                <li class="active">管理画面</li>
+                <li><a href="/">管理者</a></li>
+                <li class="active"><a href="/member">メンバー</a></li>
                 <li><a href="/division">ディビジョン</a></li>
             </ul>
         </div>
-
-        <form th:action="@{'/edit/'+ ${user_id}}" th:object="${userForm}" class="col-xs-9" method="post">
+        <form th:action="@{'/member/edit/'+ ${member_id}}"  th:object="${memberForm}" class="col-xs-9" method="post">
             <label>
                 名前
                 <input type="text" class="form-control" name="name" th:field="*{name}"/>
                 <span class="errorStr" th:errors="*{name}"></span>
             </label>
             <label>
-                メールアドレス
-                <input type="email" class="form-control" name="email" th:field="*{email}"/>
-                <span class="errorStr" th:errors="*{email}"></span>
+                誕生日
+                <input type="date" class="form-control" name="birthday" th:field="*{birthday}"/>
+                <span class="errorStr" th:errors="*{birthday}"></span>
             </label>
             <label>
-                パスワード
-                <input type="password" class="form-control" name="password" th:field="*{password}"/>
-                <span class="errorStr" th:errors="*{password}"></span>
+                好きな言語
+                <input type="text" class="form-control" name="programming" th:field="*{programming}"/>
+                <span class="errorStr" th:errors="*{programming}"></span>
             </label>
-            <input type="hidden" name="user_id" th:value="${user_id}">
+            <label>
+                趣味
+                <input type="text" class="form-control" name="hobby" th:field="*{hobby}"/>
+                <span class="errorStr" th:errors="*{hobby}"></span>
+            </label>
+            <label>
+                部門
+                <select class="form-control" th:field="*{division_id}">
+                    <option th:each="division : ${divisions}" th:value="${division.id}" th:text="${division.name}">
+                    </option>
+                </select>
+                <span class="errorStr" th:errors="*{division_id}"></span>
+            </label>
+            <input type="hidden" name="member_id" th:value="${member_id}">
             <div class="text-right mr-2">
                 <input type="submit" class="btn btn-primary" value="更新する">
             </div>
-
         </form>
 
-        <form th:action="@{/delete}" method="post">
+        <form th:action="@{/member/delete}" method="post">
             <div class="text-right mr-2">
-                <input type="submit" class="btn btn-outline-danger" name="delete" value="削除する">
+                <input type="submit" class="btn btn-outline-danger" name="delete" value="削除">
             </div>
-            <input type="hidden" name="user_id" th:value="${user_id}">
+            <input type="hidden" name="member_id" th:value="${member_id}">
         </form>
     </div>
 </div>

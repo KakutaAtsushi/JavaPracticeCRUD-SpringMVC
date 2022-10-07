@@ -1,13 +1,27 @@
 package com.example.demo.web.form;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Data
-
 public class UserForm {
+
     private Integer id;
 
+    @NotBlank
+    @Length(max=32)
     private String name;
+
+    @NotBlank
+    @Length(max= 64)
+    @Email
     private String email;
+
+    @NotBlank
+    @Length(max=32)
     private String password;
 
     public void setId(Integer id) {

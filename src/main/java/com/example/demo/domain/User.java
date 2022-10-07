@@ -1,13 +1,8 @@
 package com.example.demo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "users")
@@ -15,7 +10,6 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     private String name;

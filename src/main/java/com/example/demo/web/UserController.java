@@ -5,9 +5,11 @@ import com.example.demo.service.UserService;
 import com.example.demo.web.form.UserForm;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +17,9 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
-@ComponentScan
 @Controller
 public class UserController {
+
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
@@ -36,8 +38,11 @@ public class UserController {
         return "admin/create";
     }
 
-    @RequestMapping(value = "/store", method = RequestMethod.POST)
-    public String storeUser(@ModelAttribute("userForm") UserForm userForm) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String storeUser(@Validated @ModelAttribute("userForm") UserForm userForm, BindingResult result) {
+        if(result.hasErrors()) {
+            return "admin/create";
+        }
         User user = new User();
         BeanUtils.copyProperties(userForm, user);
         userService.insert(user);
@@ -52,8 +57,11 @@ public class UserController {
         return "admin/edit";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateUser(@RequestParam Integer user_id, @ModelAttribute("userForm") UserForm userForm) {
+    @RequestMapping(value = "/edit/{user_id}", method = RequestMethod.POST)
+    public String updateUser(@PathVariable("user_id") Integer user_id, @Validated @ModelAttribute("userForm") UserForm userForm, BindingResult result) {
+        if(result.hasErrors()) {
+            return "admin/edit";
+        }
         User user = new User();
         BeanUtils.copyProperties(userForm, user);
         user.setId(user_id);

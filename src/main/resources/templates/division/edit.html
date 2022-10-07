@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <title>test</title>
-    <link rel="stylesheet" th:href="@{/css/common.css}">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -24,41 +23,32 @@
     <div class="row">
         <div class="col-xs-3">
             <ul class="nav nav-pills nav-stacked">
-                <li>管理画面</li>
-                <li class="active"><a href="/">管理者</a></li>
+                <li class="active">管理画面</li>
+                <li><a href="/">管理者</a></li>
                 <li><a href="/member">メンバー</a></li>
-                <li><a href="/division">ディビジョン</a></li>
+                <li class="active"><a href="/division">ディビジョン</a></li>
             </ul>
         </div>
 
-        <form th:action="@{'/edit/'+ ${user_id}}" th:object="${userForm}" class="col-xs-9" method="post">
+        <form th:action="@{'/division/edit/'+${division_id}}" th:object="${divisionForm}" method="post">
             <label>
                 名前
                 <input type="text" class="form-control" name="name" th:field="*{name}"/>
                 <span class="errorStr" th:errors="*{name}"></span>
             </label>
-            <label>
-                メールアドレス
-                <input type="email" class="form-control" name="email" th:field="*{email}"/>
-                <span class="errorStr" th:errors="*{email}"></span>
-            </label>
-            <label>
-                パスワード
-                <input type="password" class="form-control" name="password" th:field="*{password}"/>
-                <span class="errorStr" th:errors="*{password}"></span>
-            </label>
-            <input type="hidden" name="user_id" th:value="${user_id}">
+            <input type="hidden" name="division_id" th:value="${division_id}">
             <div class="text-right mr-2">
                 <input type="submit" class="btn btn-primary" value="更新する">
             </div>
 
         </form>
 
-        <form th:action="@{/delete}" method="post">
+        <form th:action="@{/division/delete}" method="post">
             <div class="text-right mr-2">
-                <input type="submit" class="btn btn-outline-danger" name="delete" value="削除する">
+                <input type="submit" class="btn btn-outline-danger" name="delete" value="削除">
             </div>
-            <input type="hidden" name="user_id" th:value="${user_id}">
+
+            <input type="hidden" name="division_id" th:value="${division_id}">
         </form>
     </div>
 </div>
